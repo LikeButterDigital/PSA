@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
+
 // Function to change the color of the court area
     function changeBorderColor(color) {
       // Select the part of the SVG you want to change
@@ -37,3 +41,4 @@
     document.getElementById('border-moss').onclick = function(){
         changeBorderColor('#52653E')
     }
+    
