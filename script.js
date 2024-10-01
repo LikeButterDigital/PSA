@@ -17,7 +17,7 @@
       if(colorElements) {
         for (let colorElement of colorElements) {
           colorElement.addEventListener('click', function() {
-            var targetElementClass = colorElement.getAttribute('data-svg-path');
+            var targetElementClass = colorElement.getAttribute('data-svg-path-class');
             var color = colorElement.getAttribute('data-color');
             updateFillColor(targetElementClass, color);
           });
