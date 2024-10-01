@@ -1,6 +1,3 @@
-$( document ).ready(function() {
-    console.log( "ready!" );
-});
 
 // Function to change the color of the court area
     function changeBorderColor(color) {
