@@ -1,5 +1,6 @@
 
     // Update fill color of target svg element
+    let storeObject = {};
     function updateFillColor(targetElementClassName, color) {
       if(targetElementClassName && color) {
         var elements = document.getElementsByClassName(targetElementClassName);
@@ -30,3 +31,12 @@
       changeColors('color-block');
     });
     
+
+const button = document.getElementById('tennis-court-next');
+
+// Add a click event listener to the button
+button.addEventListener('click', function() {
+    alert('Button was clicked!');
+});
+
+console.log("script deployed")
