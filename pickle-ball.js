@@ -1,11 +1,11 @@
-var tennisStep1Button, tennisStep2Button, tennisSubmit, firstBackButton, secondBackButton;
+var pickleballStep1Button, pickleballStep2Button, pickleballSubmit, firstBackButton, secondBackButton;
 document.addEventListener("DOMContentLoaded", function () {
     // Declare all the elements at the top
-     tennisStep1Button = document.getElementById("tennis-court-next");
-     tennisStep2Button = document.getElementById("tennis-court-selection-next");
-     tennisSubmit = document.getElementById('tennis-submit');
-     firstBackButton = document.getElementById("tennis-court-selection-back");
-     secondBackButton = document.getElementById("tennis-user-information-back");
+     pickleballStep1Button = document.getElementById("pickleball-court-next");
+     pickleballStep2Button = document.getElementById("pickleball-court-selection-next");
+     pickleballSubmit = document.getElementById('pickleball-submit');
+     firstBackButton = document.getElementById("pickleball-court-selection-back");
+     secondBackButton = document.getElementById("pickleball-user-information-back");
 
      const selectedCourtsIds = [
         "one-option",
@@ -37,10 +37,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateFillColor(targetElementClassName, color) {
         sessionStorage.setItem(targetElementClassName, color);
-        sessionStorage.setItem("type", "tennis")
+        sessionStorage.setItem("type", "pickleball")
         
         if(sessionStorage.getItem('border') || sessionStorage.getItem('court')) {
-          tennisStep1Button.classList.remove("disabled");
+          pickleballStep1Button.classList.remove("disabled");
         }
         
         if (targetElementClassName && color) {
@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       changeColors('color-block');
         sessionStorage.clear();
-        tennisStep1Button.classList.add("disabled");
-        tennisStep2Button.classList.add("disabled");
-        tennisSubmit.classList.add("disabled");
+        pickleballStep1Button.classList.add("disabled");
+        pickleballStep2Button.classList.add("disabled");
+        pickleballSubmit.classList.add("disabled");
 
         hideSecondStep();
         hideThirdStep();
@@ -78,20 +78,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Register event listeners for buttons and form inputs
     function registerEventListeners() {
-        if (tennisStep1Button) {
-            tennisStep1Button.addEventListener("click", step1ButtonClickHandler);
+        if (pickleballStep1Button) {
+            pickleballStep1Button.addEventListener("click", step1ButtonClickHandler);
         }
 
-        if (tennisStep2Button) {
-            tennisStep2Button.addEventListener("click", step2ButtonClickHandler);
+        if (pickleballStep2Button) {
+            pickleballStep2Button.addEventListener("click", step2ButtonClickHandler);
         }
 
         if (firstBackButton) {
             firstBackButton.addEventListener("click", firstBackButtonClickHandler);
         }
 
-        if (tennisSubmit) {
-            tennisSubmit.addEventListener("click", function () {
+        if (pickleballSubmit) {
+            pickleballSubmit.addEventListener("click", function () {
                 console.log(sessionStorage);
                 const payload = getPayload();
                 postToServer(payload);
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.addEventListener("click", function () {
                     sessionStorage.setItem("numberOfCourts", id);
                     console.log(sessionStorage);
-                    tennisStep2Button.classList.remove("disabled");
+                    pickleballStep2Button.classList.remove("disabled");
                 });
             }
         });
@@ -133,9 +133,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         sessionStorage.getItem('email') &&
                         sessionStorage.getItem('zipCode')
                     ) {
-                        tennisSubmit.classList.remove("disabled");
+                        pickleballSubmit.classList.remove("disabled");
                     } else {
-                        tennisSubmit.classList.add("disabled");
+                        pickleballSubmit.classList.add("disabled");
                     }
                 });
             } else {
@@ -174,13 +174,14 @@ document.addEventListener("DOMContentLoaded", function () {
             "fullName": sessionStorage.getItem('fullName'),
             "phone": sessionStorage.getItem('phone'),
             "zipCode": sessionStorage.getItem('zipCode'),
-            "size": "No Preference",
-            "numberOfCourts": sessionStorage.getItem('numberOfCourts')||'No Preference',
+            "size": "Default",
+            "numberOfCourts": sessionStorage.getItem('numberOfCourts'),
             "color": {
-                "border": sessionStorage.getItem('border')||'No Preference',
+                "border": sessionStorage.getItem('border') ||'No Preference',
                 "court": sessionStorage.getItem('court')||'No Preference',
+                "nonValleyZone": sessionStorage.getItem('non-volley-zone') ||'No Preference',
             },
-            "courtType": sessionStorage.getItem('type')||'No Preference',
+            "courtType": sessionStorage.getItem('type'),
         };
     }
 
@@ -215,44 +216,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Show/hide step functions
     function hideSecondStep() {
-        const tennisCourtDiv = document.getElementById("tennis-court-selection-section");
-        if (tennisCourtDiv) {
-            tennisCourtDiv.style.display = "none";
+        const pickleballCourtDiv = document.getElementById("pickleball-court-selection-section");
+        if (pickleballCourtDiv) {
+            pickleballCourtDiv.style.display = "none";
         }
     }
 
     function showSecondStep() {
-        const tennisCourtDiv = document.getElementById("tennis-court-selection-section");
-        if (tennisCourtDiv) {
-            tennisCourtDiv.style.display = "flex";
+        const pickleballCourtDiv = document.getElementById("pickleball-court-selection-section");
+        if (pickleballCourtDiv) {
+            pickleballCourtDiv.style.display = "flex";
         }
     }
 
     function hideThirdStep() {
-        const tennisCourtDiv = document.getElementById("tennis-court-contact-section");
-        if (tennisCourtDiv) {
-            tennisCourtDiv.style.display = "none";
+        const pickleballCourtDiv = document.getElementById("pickleball-court-contact-section");
+        if (pickleballCourtDiv) {
+            pickleballCourtDiv.style.display = "none";
         }
     }
 
     function showThirdStep() {
-        const tennisCourtDiv = document.getElementById("tennis-court-contact-section");
-        if (tennisCourtDiv) {
-            tennisCourtDiv.style.display = "flex";
+        const pickleballCourtDiv = document.getElementById("pickleball-court-contact-section");
+        if (pickleballCourtDiv) {
+            pickleballCourtDiv.style.display = "flex";
         }
     }
 
     function hideFirstStep() {
-        const tennisCourtDiv = document.getElementById("tennis-court-section");
-        if (tennisCourtDiv) {
-            tennisCourtDiv.style.display = "none";
+        const pickleballCourtDiv = document.getElementById("pickleball-court-section");
+        if (pickleballCourtDiv) {
+            pickleballCourtDiv.style.display = "none";
         }
     }
 
     function showFirstStep() {
-        const tennisCourtDiv = document.getElementById("tennis-court-section");
-        if (tennisCourtDiv) {
-            tennisCourtDiv.style.display = "flex";
+        const pickleballCourtDiv = document.getElementById("pickleball-court-section");
+        if (pickleballCourtDiv) {
+            pickleballCourtDiv.style.display = "flex";
         }
     }
 
