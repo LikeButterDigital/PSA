@@ -1,7 +1,16 @@
-var basketBallStep1Button, basketBallStep2Button, basketBallSubmit, basketBallFirstBackButton,
+<style>
+    .disabled {
+    pointer-events: none;  /* Disables clicking and other interactions */
+    opacity: 0.5;          /* Makes the element appear faded */
+    cursor: not-allowed;   /* Changes the cursor to a "not allowed" icon */
+  }
+   </style>
+  <script>
+    var basketBallStep1Button, basketBallStep2Button, basketBallSubmit, basketBallFirstBackButton,
     basketBallSecondBackButton, addtionalNextButton, addtionalBackButton;
-
 document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById('error-message').style.display = 'none';
+  document.getElementById('success-message').style.display = 'none';
     sessionStorage.clear();
     // Declare all the elements at the top
     basketBallStep1Button = document.getElementById("basketball-court-next");
@@ -11,24 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
     basketBallSecondBackButton = document.getElementById("basketball-user-information-back");
     addtionalNextButton = document.getElementById("basketball-court-size-selection-next");
     addtionalBackButton = document.getElementById("basketball-court-size-selection-back");
-
     const selectedCourtsIds = [
         "one-option", "2-option", "three-option", "four-vertical-option", "four-horizontal-option-2",
         "five-option-2", "six-vertical-option-3", "six-horizontal-option-2", "seven-option-2",
         "eight-vertical-option-2", "eight-horizontal-option-2"
     ];
-
     const registrationFormIds = [
         { id: 'fullName', value: 'Full-Name-2' },
         { id: "phone", value: 'Phone-2' },
         { id: "email", value: 'Email-2' },
         { id: "zipCode", value: 'Zip-Code-2' }
     ];
-
     // Initialize page when loaded
     initializePage();
     registerEventListeners();
-
     // Initialize page state (disable buttons, hide steps, clear sessionStorage)
     function initializePage() {
         function updateFillColor(targetElementClassName, color) {
@@ -37,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }else{
               sessionStorage.setItem(targetElementClassName, color);
             }
-           
             sessionStorage.setItem("type", "basketball")
             console.log(sessionStorage)
             if(sessionStorage.getItem('border') || sessionStorage.getItem('court')) {
@@ -75,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
         hideSecondStep();
         hideThirdStep();
     }
-
     // Register event listeners for buttons and form inputs
     function registerEventListeners() {
         if (addtionalNextButton) {
@@ -115,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 hideThirdStep();
             });
         }
-
         // Register event listeners for court selection
         selectedCourtsIds.forEach((id) => {
             const element = document.getElementById(id);
@@ -127,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
         });
-
         const sizeIds = ['NBA-option', 'college-option-2','high-school-option-2'];
         sizeIds.forEach((id) => {
             const element = document.getElementById(id);
@@ -139,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
         });
-
         // Register event listeners for registration form fields
         registrationFormIds.forEach((formElement) => {
             const element = document.getElementById(formElement.value);
@@ -163,7 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
     // Event handlers
     function step1ButtonClickHandler() {
         console.log(sessionStorage);
@@ -172,7 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
         hideThirdStep();
         showAdditonalStep();
     }
-
     function additonalButtonClickHandler() {
         console.log(sessionStorage);
         showSecondStep();
@@ -180,7 +178,6 @@ document.addEventListener("DOMContentLoaded", function () {
         hideThirdStep();
         hideAdditonalStep();
     }
-
     function step2ButtonClickHandler() {
         console.log(sessionStorage);
         hideFirstStep();
@@ -188,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
         showThirdStep();
         hideAdditonalStep();
     }
-
     function basketBallFirstBackButtonClickHandler() {
         console.log(sessionStorage);
         hideSecondStep();
@@ -196,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
         hideThirdStep();
         hideAdditonalStep();
     }
-
     // Utility function for generating the payload
     function getPayload() {
         return {
@@ -218,10 +213,11 @@ document.addEventListener("DOMContentLoaded", function () {
             "courtType": sessionStorage.getItem('type'),
         };
     }
-
     // Function to post data to the server
     function postToServer(payload) {
-        fetch('https://csqp150d41.execute-api.us-east-1.amazonaws.com/dev/court', {
+        basketBallSecondBackButton.classList.add("disabled");
+        basketBallSecondBackButton.classList.add("disabled");
+        fetch('https://0xsejej5p5.execute-api.us-east-1.amazonaws.com/dev/court', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -232,13 +228,16 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            
             return response.json();
         })
         .then(data => {
             console.log('Success:', data);
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('success-message').style.display = 'flex';
         })
         .catch(error => {
+            document.getElementById('error-message').style.display = 'flex';
+            document.getElementById('success-message').style.display = 'none';
             console.error('There was an error:', error);
         })
         .finally(() => {
@@ -249,7 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 3000);
         });
     }
-
     // Show/hide step functions
     function hideSecondStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-selection-section");
@@ -257,54 +255,47 @@ document.addEventListener("DOMContentLoaded", function () {
             basketballCourtDiv.style.display = "none";
         }
     }
-
     function showSecondStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-selection-section");
         if (basketballCourtDiv) {
             basketballCourtDiv.style.display = "flex";
         }
     }
-
     function hideThirdStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-contact-section");
         if (basketballCourtDiv) {
             basketballCourtDiv.style.display = "none";
         }
     }
-
     function showThirdStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-contact-section");
         if (basketballCourtDiv) {
             basketballCourtDiv.style.display = "flex";
         }
     }
-
     function hideFirstStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-section");
         if (basketballCourtDiv) {
             basketballCourtDiv.style.display = "none";
         }
     }
-
     function showFirstStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-section");
         if (basketballCourtDiv) {
             basketballCourtDiv.style.display = "flex";
         }
     }
-
     function hideAdditonalStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-size-selection-section");
         if (basketballCourtDiv) {
             basketballCourtDiv.style.display = "none";
         }
     }
-
     function showAdditonalStep() {
         const basketballCourtDiv = document.getElementById("basketball-court-size-selection-section");
         if (basketballCourtDiv) {
             basketballCourtDiv.style.display = "flex";
         }
     }
-
 });
+    </script>
