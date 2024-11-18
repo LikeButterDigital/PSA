@@ -1,12 +1,21 @@
+<style>
+  .disabled {
+  pointer-events: none;  /* Disables clicking and other interactions */
+  opacity: 0.5;          /* Makes the element appear faded */
+  cursor: not-allowed;   /* Changes the cursor to a "not allowed" icon */
+}
+ </style>
+ <script>
 var tennisStep1Button, tennisStep2Button, tennisSubmit, firstBackButton, secondBackButton;
 document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById('error-message').style.display = 'none';
+  document.getElementById('success-message').style.display = 'none';
     // Declare all the elements at the top
      tennisStep1Button = document.getElementById("tennis-court-next");
      tennisStep2Button = document.getElementById("tennis-court-selection-next");
      tennisSubmit = document.getElementById('tennis-submit');
      firstBackButton = document.getElementById("tennis-court-selection-back");
      secondBackButton = document.getElementById("tennis-user-information-back");
-
      const selectedCourtsIds = [
         "one-option",
         "2-option",
@@ -20,29 +29,23 @@ document.addEventListener("DOMContentLoaded", function () {
         "eight-vertical-option-2",
         "eight-horizontal-option-2",
       ];
-
     const registrationFormIds = [
         {id: 'fullName', value: 'Full-Name-2'},
         {id: "phone", value: 'Phone-2'},
         {id: "email", value: 'Email-2'},
         {id: "zipCode", value: 'Zip-Code-2'}
     ];
-
     // Initialize page when loaded
     initializePage();
     registerEventListeners();
-
     // Initialize page state (disable buttons, hide steps, clear sessionStorage)
     function initializePage() {
-
     function updateFillColor(targetElementClassName, color) {
         sessionStorage.setItem(targetElementClassName, color);
         sessionStorage.setItem("type", "tennis")
-        
         if(sessionStorage.getItem('border') || sessionStorage.getItem('court')) {
           tennisStep1Button.classList.remove("disabled");
         }
-        
         if (targetElementClassName && color) {
           var elements = document.getElementsByClassName(targetElementClassName);
           if (elements) {
@@ -71,34 +74,27 @@ document.addEventListener("DOMContentLoaded", function () {
         tennisStep1Button.classList.add("disabled");
         tennisStep2Button.classList.add("disabled");
         tennisSubmit.classList.add("disabled");
-
         hideSecondStep();
         hideThirdStep();
     }
-
     // Register event listeners for buttons and form inputs
     function registerEventListeners() {
         if (tennisStep1Button) {
             tennisStep1Button.addEventListener("click", step1ButtonClickHandler);
         }
-
         if (tennisStep2Button) {
             tennisStep2Button.addEventListener("click", step2ButtonClickHandler);
         }
-
         if (firstBackButton) {
             firstBackButton.addEventListener("click", firstBackButtonClickHandler);
         }
-
         if (tennisSubmit) {
             tennisSubmit.addEventListener("click", function () {
                 console.log(sessionStorage);
                 const payload = getPayload();
                 postToServer(payload);
-                
             });
         }
-
         if (secondBackButton) {
             secondBackButton.addEventListener("click", function () {
                 console.log(sessionStorage);
@@ -107,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 hideThirdStep();
             });
         }
-
         // Register event listeners for court selection
         selectedCourtsIds.forEach((id) => {
             const element = document.getElementById(id);
@@ -119,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
         });
-
         // Register event listeners for registration form fields
         registrationFormIds.forEach((formElement) => {
             const element = document.getElementById(formElement.value);
@@ -143,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
     // Event handlers
     function step1ButtonClickHandler() {
         console.log(sessionStorage);
@@ -151,21 +144,18 @@ document.addEventListener("DOMContentLoaded", function () {
         hideFirstStep();
         hideThirdStep();
     }
-
     function step2ButtonClickHandler() {
         console.log(sessionStorage);
         hideFirstStep();
         hideSecondStep();
         showThirdStep();
     }
-
     function firstBackButtonClickHandler() {
         console.log(sessionStorage);
         hideSecondStep();
         showFirstStep();
         hideThirdStep();
     }
-
     // Utility function for generating the payload
     function getPayload() {
         return {
@@ -183,10 +173,11 @@ document.addEventListener("DOMContentLoaded", function () {
             "courtType": sessionStorage.getItem('type')||'No Preference',
         };
     }
-
     // Function to post data to the server
     function postToServer(payload) {
-        fetch('https://csqp150d41.execute-api.us-east-1.amazonaws.com/dev/court', {
+        document.getElementById('tennis-submit').classList.add("disabled");
+        document.getElementById("tennis-user-information-back").classList.add("disabled");
+        fetch('https://0xsejej5p5.execute-api.us-east-1.amazonaws.com/dev/court', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -201,9 +192,13 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(data => {
             console.log('Success:', data);
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('success-message').style.display = 'flex';
         })
         .catch(error => {
             console.error('There was an error:', error);
+            document.getElementById('error-message').style.display = 'flex';
+            document.getElementById('success-message').style.display = 'none';
         }).finally(() => {
             //redirect user to home page after 3000 second
             sessionStorage.clear();
@@ -212,7 +207,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 3000);
         });
     }
-
     // Show/hide step functions
     function hideSecondStep() {
         const tennisCourtDiv = document.getElementById("tennis-court-selection-section");
@@ -220,40 +214,35 @@ document.addEventListener("DOMContentLoaded", function () {
             tennisCourtDiv.style.display = "none";
         }
     }
-
     function showSecondStep() {
         const tennisCourtDiv = document.getElementById("tennis-court-selection-section");
         if (tennisCourtDiv) {
             tennisCourtDiv.style.display = "flex";
         }
     }
-
     function hideThirdStep() {
         const tennisCourtDiv = document.getElementById("tennis-court-contact-section");
         if (tennisCourtDiv) {
             tennisCourtDiv.style.display = "none";
         }
     }
-
     function showThirdStep() {
         const tennisCourtDiv = document.getElementById("tennis-court-contact-section");
         if (tennisCourtDiv) {
             tennisCourtDiv.style.display = "flex";
         }
     }
-
     function hideFirstStep() {
         const tennisCourtDiv = document.getElementById("tennis-court-section");
         if (tennisCourtDiv) {
             tennisCourtDiv.style.display = "none";
         }
     }
-
     function showFirstStep() {
         const tennisCourtDiv = document.getElementById("tennis-court-section");
         if (tennisCourtDiv) {
             tennisCourtDiv.style.display = "flex";
         }
     }
-
 });
+</script>
