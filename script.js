@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
      tennisSubmit = document.getElementById('tennis-submit');
      firstBackButton = document.getElementById("tennis-court-selection-back");
      secondBackButton = document.getElementById("tennis-user-information-back");
+     const checkbox = document.getElementById('checkbox');
      const selectedCourtsIds = [
         "one-option",
         "2-option",
@@ -79,6 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     // Register event listeners for buttons and form inputs
     function registerEventListeners() {
+       checkbox.addEventListener('change', function() {
+    if (checkbox.checked) {
+        console.log('Checkbox is checked');
+        sessionStorage.setItem('isResurfacedCourt','YES')
+    } else {
+      sessionStorage.setItem('isResurfacedCourt','NO')
+        console.log('Checkbox is not checked');
+    }
+});
         if (tennisStep1Button) {
             tennisStep1Button.addEventListener("click", step1ButtonClickHandler);
         }
@@ -171,6 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "court": sessionStorage.getItem('court')||'No Preference',
             },
             "courtType": sessionStorage.getItem('type')||'No Preference',
+           "isResurfaced": sessionStorage.getItem('isResurfacedCourt'),
         };
     }
     // Function to post data to the server
