@@ -45,7 +45,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             sessionStorage.setItem("type", "basketball")
             console.log(sessionStorage)
-            if(sessionStorage.getItem('border') || sessionStorage.getItem('court')) {
+            if(sessionStorage.getItem('border')
+               || sessionStorage.getItem('court') 
+               || sessionStorage.getItem('basket-ball-keys') 
+               || sessionStorage.getItem('center-court')
+               || sessionStorage.getItem('three-point')
+               || sessionStorage.getItem('top-key')
+              ) {
               basketBallStep1Button.classList.remove("disabled");
             }
             if(targetElementClassName && color) {
