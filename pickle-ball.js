@@ -10,6 +10,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('error-message').style.display = 'none';
             document.getElementById('success-message').style.display = 'none';
+  const checkbox = document.getElementById('checkbox');
     // Declare all the elements at the top
      pickleballStep1Button = document.getElementById("pickleball-court-next");
      pickleballStep2Button = document.getElementById("pickleball-court-selection-next");
@@ -79,6 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     // Register event listeners for buttons and form inputs
     function registerEventListeners() {
+       checkbox.addEventListener('change', function() {
+    if (checkbox.checked) {
+        console.log('Checkbox is checked');
+        sessionStorage.setItem('isResurfacedCourt','YES')
+    } else {
+      sessionStorage.setItem('isResurfacedCourt','NO')
+        console.log('Checkbox is not checked');
+    }
+});
         if (pickleballStep1Button) {
             pickleballStep1Button.addEventListener("click", step1ButtonClickHandler);
         }
@@ -172,6 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "nonValleyZone": sessionStorage.getItem('non-volley-zone') ||'No Preference',
             },
             "courtType": sessionStorage.getItem('type'),
+          "isResurfaced": sessionStorage.getItem('isResurfacedCourt'),
         };
     }
     // Function to post data to the server
