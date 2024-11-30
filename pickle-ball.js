@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateFillColor(targetElementClassName, color) {
         sessionStorage.setItem(targetElementClassName, color);
         sessionStorage.setItem("type", "pickleball")
-        if(sessionStorage.getItem('border') || sessionStorage.getItem('court')) {
+        if(sessionStorage.getItem('border') || sessionStorage.getItem('court') || sessionStorage.getItem('non-volley-zone')) {
           pickleballStep1Button.classList.remove("disabled");
         }
         if (targetElementClassName && color) {
