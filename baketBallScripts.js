@@ -11,6 +11,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('error-message').style.display = 'none';
   document.getElementById('success-message').style.display = 'none';
+    const checkbox = document.getElementById('checkbox');
     sessionStorage.clear();
     // Declare all the elements at the top
     basketBallStep1Button = document.getElementById("basketball-court-next");
@@ -81,6 +82,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     // Register event listeners for buttons and form inputs
     function registerEventListeners() {
+          checkbox.addEventListener('change', function() {
+    if (checkbox.checked) {
+        console.log('Checkbox is checked');
+        sessionStorage.setItem('isResurfacedCourt','YES')
+    } else {
+      sessionStorage.setItem('isResurfacedCourt','NO')
+        console.log('Checkbox is not checked');
+    }
+});
         if (addtionalNextButton) {
             addtionalNextButton.addEventListener("click", additonalButtonClickHandler);
         }
@@ -211,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "basketBallKeys":sessionStorage.getItem('basket-ball-keys')||'No Preference',
             },
             "courtType": sessionStorage.getItem('type'),
+             "isResurfaced": sessionStorage.getItem('isResurfacedCourt'),
         };
     }
     // Function to post data to the server
