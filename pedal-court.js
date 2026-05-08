@@ -47,11 +47,184 @@
             { id: "email", value: 'Email-2' },
             { id: "zipCode", value: 'Zip-Code-2' }
         ];
+        const turfColorMap = {
+            'straight': {
+                '#166434': {
+                    's1-c0': '#1B3A27',
+                    's1-c1': '#19482B',
+                    's1-c2': '#166434',
+                    's2-c0': '#1B3A27',
+                    's2-c1': '#184F2D',
+                    's2-c2': '#166434',
+                    's3-c0': '#1A4129',
+                    's3-c1': '#184F2D',
+                    's3-c2': '#166434',
+                    's4-c0': '#166434',
+                    's4-c1': '#184F2D',
+                    's4-c2': '#166434',
+                    'base-c0': '#1F1F1F',
+                },
+                '#3C82F5': {
+                    's1-c0': '#2D508A',
+                    's1-c1': '#305A9F',
+                    's1-c2': '#3364B4',
+                    's2-c0': '#2D508A',
+                    's2-c1': '#366ECA',
+                    's2-c2': '#3C82F5',
+                    's3-c0': '#2D508A',
+                    's3-c1': '#3364B4',
+                    's3-c2': '#3C82F5',
+                    's4-c0': '#3C82F5',
+                    's4-c1': '#3364B4',
+                    's4-c2': '#2882F5',
+                    'base-c0': '#1F1F1F',
+                },
+                '#F97315': {
+                    's1-c0': '#76401A',
+                    's1-c1': '#A15119',
+                    's1-c2': '#CD6217',
+                    's2-c0': '#76401A',
+                    's2-c1': '#F97315',
+                    's2-c2': '#F97315',
+                    's3-c0': '#76401A',
+                    's3-c1': '#A15119',
+                    's3-c2': '#F97315',
+                    's4-c0': '#F97315',
+                    's4-c1': '#B75A18',
+                    's4-c2': '#F97315',
+                    'base-c0': '#1F1F1F',
+                }
+            },
+            'curled': {
+                '#166434': {
+                    's1-c0': '#1B3A27',
+                    's1-c1': '#19482B',
+                    's1-c2': '#185630',
+                    's2-c0': '#1B3A27',
+                    's2-c1': '#19482B',
+                    's2-c2': '#166434',
+                    's3-c0': '#1B3A27',
+                    's3-c1': '#184F2D',
+                    's3-c2': '#166434',
+                    's4-c0': '#184F2D',
+                    's4-c1': '#185630',
+                    's4-c2': '#166434',
+                    'base-c0': '#1F1F1F',
+                },
+                '#3C82F5': {
+                    's1-c0': '#2D508A',
+                    's1-c1': '#3364B4',
+                    's1-c2': '#305A9F',
+                    's2-c0': '#2D508A',
+                    's2-c1': '#3364B4',
+                    's2-c2': '#3C82F5',
+                    's3-c0': '#2D508A',
+                    's3-c1': '#366ECA',
+                    's3-c2': '#3C82F5',
+                    's4-c0': '#305A9F',
+                    's4-c1': '#366ECA',
+                    's4-c2': '#3C82F5',
+                    'base-c0': '#1F1F1F',
+                },
+                '#F97315': {
+                    's1-c0': '#76401A',
+                    's1-c1': '#A15119',
+                    's1-c2': '#B75A18',
+                    's2-c0': '#76401A',
+                    's2-c1': '#B75A18',
+                    's2-c2': '#F97315',
+                    's3-c0': '#8C491A',
+                    's3-c1': '#B75A18',
+                    's3-c2': '#F97315',
+                    's4-c0': '#8C491A',
+                    's4-c1': '#B75A18',
+                    's4-c2': '#F97315',
+                    'base-c0': '#1F1F1F',
+                },
+                '#EF4345': {
+                    's1-c0': '#722D2E',
+                    's1-c1': '#9B3435',
+                    's1-c2': '#B03839',
+                    's2-c0': '#722D2E',
+                    's2-c1': '#B03839',
+                    's2-c2': '#EF4345',
+                    's3-c0': '#722D2E',
+                    's3-c1': '#B03839',
+                    's3-c2': '#EF4345',
+                    's4-c0': '#C53C3D',
+                    's4-c1': '#B03839',
+                    's4-c2': '#EF4345',
+                    'base-c0': '#1F1F1F',
+                },
+                '#8A5CF5': {
+                    's1-c0': '#493774',
+                    's1-c1': '#543D8A',
+                    's1-c2': '#6A49B4',
+                    's2-c0': '#493774',
+                    's2-c1': '#6A49B4',
+                    's2-c2': '#8A5CF5',
+                    's3-c0': '#493774',
+                    's3-c1': '#6A49B4',
+                    's3-c2': '#8A5CF5',
+                    's4-c0': '#543D8A',
+                    's4-c1': '#6A49B4',
+                    's4-c2': '#8A5CF5',
+                    'base-c0': '#1F1F1F',
+                },
+                '#91400D': {
+                    's1-c0': '#4C2C17',
+                    's1-c1': '#582F16',
+                    's1-c2': '#4C2C17',
+                    's2-c0': '#4C2C17',
+                    's2-c1': '#6F3612',
+                    's2-c2': '#91400D',
+                    's3-c0': '#4C2C17',
+                    's3-c1': '#6F3612',
+                    's3-c2': '#91400D',
+                    's4-c0': '#582F16',
+                    's4-c1': '#6F3612',
+                    's4-c2': '#91400D',
+                    'base-c0': '#1F1F1F',
+                },
+                '#EC4799': {
+                    's1-c0': '#702E4F',
+                    's1-c1': '#9A3768',
+                    's1-c2': '#AE3B74',
+                    's2-c0': '#702E4F',
+                    's2-c1': '#AE3B74',
+                    's2-c2': '#EC4799',
+                    's3-c0': '#702E4F',
+                    's3-c1': '#AE3B74',
+                    's3-c2': '#EC4799',
+                    's4-c0': '#9A3768',
+                    's4-c1': '#C33F80',
+                    's4-c2': '#EC4799',
+                    'base-c0': '#1F1F1F',
+                },
+                '#000000': {
+                    's1-c1': '#121212',
+                    's1-c2': '#1F1F1F',
+                    's2-c0': '#0D0D0D',
+                    's2-c1': '#171717',
+                    's2-c2': '#1F1F1F',
+                    's3-c0': '#1E1E1E',
+                    's3-c1': '#171717',
+                    's3-c2': '#1F1F1F',
+                    's4-c0': '#171717',
+                    's4-c1': '#1A1A1A',
+                    's4-c2': '#1F1F1F',
+                    'base-c0': '#1F1F1F',
+                }
+
+            }
+        }
+
         // Initialize page when loaded
         initializePage();
         registerEventListeners();
         // Initialize page state (disable buttons, hide steps, clear sessionStorage)
         function initializePage() {
+            // Update court fill color
             function updateFillColor(targetElementClassName, color) {
                 sessionStorage.setItem(targetElementClassName, color);
                 sessionStorage.setItem("type", "padel")
@@ -67,6 +240,19 @@
                     }
                 }
             }
+
+            // Update stop color for turf SVG
+            function updateStopColors(map, rootSelector) {
+                const root = document.querySelector(rootSelector);
+                if (!root) return;
+
+                for (const [className, color] of Object.entries(map)) {
+                    root.querySelectorAll(`.${className}`).forEach((el) => {
+                        el.style.stopColor = color;
+                    });
+                }
+            }
+
             // Change colors on click on each color block
             function changeColors(colorClassName) {
                 var colorElements = document.getElementsByClassName(colorClassName);
@@ -78,6 +264,7 @@
                             var targetElementClass = colorElement.getAttribute('data-svg-path-class');
                             var color = colorElement.getAttribute('data-color');
                             updateFillColor(targetElementClass, color);
+                            updateStopColors(turfColorMap[turfType][color], getTurfRootSelector(turfType));
                             sessionStorage.setItem('turfType', turfType);
                         });
                     }
@@ -347,6 +534,15 @@
         function scrollToTop(step) {
             if (window) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function getTurfRootSelector(turfType) {
+            switch (turfType) {
+                case 'straight':
+                    return '#padel-straight-turf-image';
+                case 'curled':
+                    return '#padel-curled-turf-image';
             }
         }
     });
