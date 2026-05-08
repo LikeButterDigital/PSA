@@ -186,6 +186,7 @@
         }
         // Event handlers
         function step1ButtonClickHandler() {
+            scrollToTop();
             showSecondStep();
             hideFirstStep();
             hideThirdStep();
@@ -193,6 +194,7 @@
         }
 
         function step2ButtonClickHandler() {
+            scrollToTop();
             hideFirstStep();
             hideSecondStep();
             showThirdStep();
@@ -200,6 +202,7 @@
         }
 
         function step3ButtonClickHandler() {
+            scrollToTop();
             hideFirstStep();
             hideSecondStep();
             hideThirdStep();
@@ -207,6 +210,7 @@
         }
 
         function step2BackButtonClickHandler() {
+            scrollToTop();
             showFirstStep();
             hideSecondStep();
             hideThirdStep();
@@ -214,13 +218,15 @@
         }
 
         function step3BackButtonClickHandler() {
+            scrollToTop();
             hideFirstStep();
             showSecondStep();
             hideThirdStep();
-            showFourthStep();
+            hideFourthStep();
         }
 
         function formBackButtonClickHandler() {
+            scrollToTop();
             hideFirstStep();
             hideSecondStep();
             showThirdStep();
@@ -338,5 +344,10 @@
             }
         }
 
+        function scrollToTop(step) {
+            if (window) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
     });
 </script>
